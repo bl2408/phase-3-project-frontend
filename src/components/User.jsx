@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ep } from "../data/endpoints";
 
 export default function User(){
@@ -26,8 +26,9 @@ export default function User(){
     return (
         <>
             {
-                display.id ? display.name : display.message
+                display.message ?  display.message : display.name
             }
+            View: <Link to={`/users/${display.name}/posts`}>{`${display.name}'s posts`}</Link>
         </>
     );
 }

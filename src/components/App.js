@@ -27,4 +27,4 @@ function App() {
   );
 }
 
-export {AppContext, App}
+export {AppContext, App, defaultAppState}
