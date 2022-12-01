@@ -40,14 +40,11 @@ export default function CreateEdit({mode}){
             .then(data=>{
 
                 if(data.success){
-                    const { title, body, viewable_id } = data.results;
-                    console.log(data)
+                    const { title, body } = data.results[0];
+                    refs.textTitle.current.value = title
+                    refs.textAreaMain.current.value = body
                 }
 
-
-                // refs.textTitle.current.value = title
-                // refs.textAreaMain.current.value = body
-                // refs.selectPublish.current.value = viewable_id
             })
             
         }
@@ -74,8 +71,8 @@ export default function CreateEdit({mode}){
             user: userData
         }
 
-        fetch(ep.postsNew(),{
-            method: "POST",
+        fetch(mode==="edit" ? ep.postsEdit(id) : ep.postsNew(),{
+            method: mode==="edit" ? "PUT" :"POST",
             headers: {
                 "Content-Type": "application/json"
             },

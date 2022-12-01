@@ -7,6 +7,7 @@ const ep = {
     postsAll: function() { return `${this.base}/posts`},
     postsSingle: function(id) { return `${this.base}/posts/${id}`},
     postsNew: function() { return `${this.base}/new/post`},
+    postsEdit: function(id) { return `${this.base}/edit/post/${id}`},
 
     viewablesList: function() { return `${this.base}/viewables`},
     
