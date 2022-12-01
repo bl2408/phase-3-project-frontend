@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { ep } from "../data/endpoints";
 import { AppContext } from "./App";
 
-export default function Create(){
+export default function CreateEdit({mode}){
 
     const { appState } = useContext(AppContext);
     const { userData } = appState;
@@ -11,11 +11,12 @@ export default function Create(){
     const [ optionsState, setOptionsState ] = useState([]);
 
     const history = useHistory();
+    const {id} = useParams();
 
     const refs = {
         textTitle: useRef(""),
         textAreaMain: useRef(""),
-        selectPublish: useRef("0")
+        selectPublish: useRef("0") 
     };
 
     useEffect(()=>{
@@ -26,6 +27,31 @@ export default function Create(){
                 setOptionsState(state=>data.results)
             }
         })
+
+        if(mode==="edit"){
+            fetch(ep.postsSingle(id),{
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({user: userData})
+            })
+            .then(res=>res.json())
+            .then(data=>{
+
+                if(data.success){
+                    const { title, body, viewable_id } = data.results;
+                    console.log(data)
+                }
+
+
+                // refs.textTitle.current.value = title
+                // refs.textAreaMain.current.value = body
+                // refs.selectPublish.current.value = viewable_id
+            })
+            
+        }
+
     },[]);
 
     const handleFormSubmit =(e)=>{

@@ -37,7 +37,12 @@ export default function Content(){
 
                 <Route exact path="/users/:userId/create">
                     { redirect() }
-                    <CreateEdit />
+                    <CreateEdit mode={"create"}/>
+                </Route>
+
+                <Route exact path="/posts/:id/edit">
+                    { redirect() }
+                    <CreateEdit mode={"edit"}/>
                 </Route>
 
             </Switch>

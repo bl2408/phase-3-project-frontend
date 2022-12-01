@@ -1,12 +1,15 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { ep } from "../data/endpoints";
 import { AppContext } from "./App";
 
-export default function Post({data}){
+export default function Post({data: dataPost, removePost}){
 
     const { appState } = useContext(AppContext);
     const { loggedIn, userData } = appState;
-    const isAuthor = userData?.name?.toLowerCase() === data.author.name.toLowerCase();
+    const isAuthor = userData?.name?.toLowerCase() === dataPost.author.name.toLowerCase();
+
+    const history = useHistory();
 
     const styleCss = ()=>{
         const style = {
@@ -18,16 +21,41 @@ export default function Post({data}){
         return style;
     };
 
-    const lowerPostUser = data.author.name.toLowerCase();
+    const lowerPostUser = dataPost.author.name.toLowerCase();
+
+    const handleDelete = ()=>{
+        // console.log(data.id)
+
+        fetch(ep.postsSingle(dataPost.id),{
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.success){
+                removePost(data.results[0].id)
+            }
+        })
+
+        ;
+    };
+
+    const handleEdit =()=>{
+        history.push(`/posts/${dataPost.id}/edit`);
+    };
 
     return (
         <article style={styleCss()}>
+            {isAuthor ? <button onClick={handleDelete}>Delete</button> : null}
+            {isAuthor ? <button onClick={handleEdit}>Edit</button> : null}
             <header>
-                {data.title} <br />
-                {data.created_at} : {data.updated_at}<br />
-                <Link to={`/users/${lowerPostUser}`}>{data.author.name}</Link>
+                {dataPost.created_at} : {dataPost.updated_at}<br />
+                <Link to={`/users/${lowerPostUser}`}>{dataPost.author.name}</Link>
+                
             </header>
-            <div>{data.body}</div>
+            <div>{dataPost.body}</div>
             <hr />
         </article>
     );

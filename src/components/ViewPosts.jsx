@@ -1,11 +1,11 @@
-import { useContext, useEffect, useId, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from './App';
 
 import { v4 as uuid } from 'uuid';
 
 import Post from './Post';
 import { ep } from '../data/endpoints';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 
 
@@ -15,6 +15,8 @@ export default function ViewPosts(){
     const { loggedIn, userData } = appState;
 
     const { id, userId } = useParams();
+
+    const history = useHistory();
 
 
     const [ posts, setPosts] = useState([])
@@ -29,7 +31,7 @@ export default function ViewPosts(){
         }
 
         if(loggedIn){
-            requestObj.body = JSON.stringify(userData);
+            requestObj.body = JSON.stringify({user: userData});
 
         }
 
@@ -55,9 +57,20 @@ export default function ViewPosts(){
     }, [appState, id, userId]);
 
 
+    const removePost = (id)=>{
+        setPosts(d=>{
+            const p = posts.filter(post=> post.id !== id)
+            if(p.length === 0 ){
+                return {message:"Could not find post!"}
+            }
+            return p
+        })
+    };
+
+
     const viewPosts = ()=>{
         if(Array.isArray(posts)){
-            return posts.length === 0 ? "Loading" : posts.map((post)=> <Post key={uuid()} data={post}/>)
+            return posts.length === 0 ? "Loading" : posts.map((post)=> <Post key={uuid()} data={post} removePost={removePost}/>)
         }else{
             return posts.message;
         }
