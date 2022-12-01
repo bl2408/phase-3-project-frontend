@@ -26,9 +26,15 @@ export default function User(){
     return (
         <>
             {
-                display.message ?  display.message : display.name
+                display.message 
+                ?  display.message 
+                : 
+                <>
+                    {display.name}
+                    View: <Link to={`/users/${display.name.toLowerCase()}/posts`}>{`${display.name}'s posts`}</Link>
+                </>
             }
-            View: <Link to={`/users/${display.name}/posts`}>{`${display.name}'s posts`}</Link>
+            
         </>
     );
 }

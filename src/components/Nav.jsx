@@ -32,6 +32,8 @@ export default function Nav(){
         })
     };
 
+    const lowerCurrentUser = !!appState.userData.name ? appState.userData.name.toLowerCase() : "";
+
     return (
 
         <nav style={{display:'flex', gap: "10px"}}>
@@ -40,8 +42,9 @@ export default function Nav(){
             loggedIn 
                 ? 
                 <>
-                    <Link to={`/users/${appState.userData.name}`}>{appState.userData.name}</Link> 
-                    <Link to={`/users/${appState.userData.name}/posts`}>Posts</Link>
+                    <Link to={`/users/${lowerCurrentUser}`}>{appState.userData.name}</Link> 
+                    <Link to={`/users/${lowerCurrentUser}/posts`}>Posts</Link>
+                    <Link to={`/users/${lowerCurrentUser}/create`}>Create</Link>
                     <button onClick={tempLogin}>Logout</button> 
                 </>
                 : 

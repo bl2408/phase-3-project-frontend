@@ -64,8 +64,8 @@ export default function ViewPosts(){
     };
 
     return (
-        <>
-        {viewPosts()}
-        </>
+        <section>
+            { viewPosts() }
+        </section>
     );
 }
