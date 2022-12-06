@@ -31,25 +31,16 @@ export default function Nav(){
         .then(data=>{
             if(data.success){
 
-                fetch(ep.roles())
-                .then(res2=>res2.json())
-                .then(data2=>{
-
-                    if(data2.success){
-                        setAppState(state=>{
-                            const newState = {
-                                ...state, 
-                                userData: { ...data.results[0], role: data2.results.find(role=>role.id === data.results[0].id).name }, 
-                                rolesList: data2.results, 
-                                loggedIn: true
-                            }
-                            console.log(newState);
-                            return newState;
-                        })
-                        
+                setAppState(state=>{
+                    const newState = {
+                        ...state, 
+                        userData: data.results[0], 
+                        loggedIn: true
                     }
-
+                    console.log(newState);
+                    return newState;
                 })
+
             }
         })
     };
