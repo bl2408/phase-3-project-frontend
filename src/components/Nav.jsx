@@ -24,13 +24,32 @@ export default function Nav(){
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                name: "brian"
+                name: "alice"
             })
         })
         .then(res=>res.json())
         .then(data=>{
             if(data.success){
-                 setAppState(s=>({...s, userData: data.results[0], loggedIn: true}))
+
+                fetch(ep.roles())
+                .then(res2=>res2.json())
+                .then(data2=>{
+
+                    if(data2.success){
+                        setAppState(state=>{
+                            const newState = {
+                                ...state, 
+                                userData: { ...data.results[0], role: data2.results.find(role=>role.id === data.results[0].id).name }, 
+                                rolesList: data2.results, 
+                                loggedIn: true
+                            }
+                            console.log(newState);
+                            return newState;
+                        })
+                        
+                    }
+
+                })
             }
         })
     };
@@ -58,7 +77,9 @@ export default function Nav(){
 
     useEffect(()=>{
         document.addEventListener("click",(e)=>{
-            if(!!menu.current){
+
+            if(!!menu.current && !!e.target.parentNode){
+
                 if(e.target.parentNode.className === menu.current.className){
                     dropMenu();
                 }else{

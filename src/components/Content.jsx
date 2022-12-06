@@ -9,10 +9,25 @@ import { AppContext } from './App';
 export default function Content(){
    
     const { appState } = useContext(AppContext);
-    const { loggedIn } = appState;
+    const { loggedIn, userData } = appState;
 
     const redirect =()=>{
-        return !loggedIn ? <Redirect to="/" /> : null
+
+        const comp = <Redirect to="/" />;
+
+        if(!loggedIn){
+            return comp;
+        }
+
+        switch(userData.role){
+            case "admin":
+            case "editor":
+                return null;
+            case "member":
+            case "public":
+            default:
+                return comp;
+        } 
     };
 
     return (

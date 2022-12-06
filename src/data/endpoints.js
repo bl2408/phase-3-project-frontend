@@ -1,5 +1,8 @@
 const ep = {
     base: `http://localhost:9292`,
+
+    roles: function(){return `${this.base}/roles`},
+
     login: function() { return `${this.base}/users/login`},
     user: function(id) { return `${this.base}/users/${id}`},
     userPosts: function(id) { return `${this.base}/users/${id}/posts`},
