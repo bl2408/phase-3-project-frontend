@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -8,6 +9,7 @@ export default function Nav(){
 
     const { appState, setAppState } = useContext(AppContext);
     const { loggedIn } = appState;
+    const menu = useRef();
 
     const tempLogin =()=>{
 
@@ -35,14 +37,38 @@ export default function Nav(){
 
     const userLinks = !!appState.userData.name ? `/users/${appState.userData.name.toLowerCase()}` : "";
     
-    const dropMenu =(e)=>{
-        const parent = e.target.parentNode;
-        if(parent.style.maxHeight){
-            parent.style.maxHeight = null;
+    const dropMenu =(forceClose=false)=>{
+        const m = menu.current;
+       
+        if(!m){
+            return;
+        }
+
+        if(forceClose){
+            m.style.maxHeight = null;
+            return;
+        }
+
+        if(m.style.maxHeight){
+            m.style.maxHeight = null;
         }else{
-            parent.style.maxHeight = `${parent.scrollHeight}px`;
+            m.style.maxHeight = `${m.scrollHeight}px`;
         }
     };
+
+    useEffect(()=>{
+        document.addEventListener("click",(e)=>{
+            if(!!menu.current){
+                if(e.target.parentNode.className === menu.current.className){
+                    dropMenu();
+                }else{
+                    dropMenu(true);
+                }
+            }
+        });
+    });
+
+
 
     return (
 
@@ -52,11 +78,11 @@ export default function Nav(){
             loggedIn 
                 ? 
                 <div className="nav-menu-loggedin">
-                    <div className="nav-menu-loggedin-content">
-                        <div onClick={dropMenu}>{appState.userData.name}</div>
-                        <Link onClick={dropMenu} to={userLinks}>Profile</Link> 
-                        <Link onClick={dropMenu} to={`${userLinks}/posts`}>Posts</Link>
-                        <Link onClick={dropMenu} to={`${userLinks}/create`}>Create</Link>
+                    <div className="nav-menu-loggedin-content" ref={menu}>
+                        <div>{appState.userData.name}</div>
+                        <Link to={userLinks}>Profile</Link> 
+                        <Link to={`${userLinks}/posts`}>Posts</Link>
+                        <Link to={`${userLinks}/create`}>Create</Link>
                         <button onClick={tempLogin}>Logout</button> 
                     </div>
                 </div>

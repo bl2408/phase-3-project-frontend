@@ -34,8 +34,7 @@ nav{
 .nav-menu-loggedin{
   display: inline-block;
   position: relative;
-  min-width: 120px;
-  border: solid 1px green;
+  min-width: 80px;
 }
 .nav-menu-loggedin-content{
   position: absolute;
