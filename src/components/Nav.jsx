@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ep } from "../data/endpoints";
@@ -32,21 +33,33 @@ export default function Nav(){
         })
     };
 
-    const lowerCurrentUser = !!appState.userData.name ? appState.userData.name.toLowerCase() : "";
+    const userLinks = !!appState.userData.name ? `/users/${appState.userData.name.toLowerCase()}` : "";
+    
+    const dropMenu =(e)=>{
+        const parent = e.target.parentNode;
+        if(parent.style.maxHeight){
+            parent.style.maxHeight = null;
+        }else{
+            parent.style.maxHeight = `${parent.scrollHeight}px`;
+        }
+    };
 
     return (
 
-        <nav style={{display:'flex', gap: "10px"}}>
+        <nav>
             <Link to={`/`}>Home</Link> 
             { 
             loggedIn 
                 ? 
-                <>
-                    <Link to={`/users/${lowerCurrentUser}`}>{appState.userData.name}</Link> 
-                    <Link to={`/users/${lowerCurrentUser}/posts`}>Posts</Link>
-                    <Link to={`/users/${lowerCurrentUser}/create`}>Create</Link>
-                    <button onClick={tempLogin}>Logout</button> 
-                </>
+                <div className="nav-menu-loggedin">
+                    <div className="nav-menu-loggedin-content">
+                        <div onClick={dropMenu}>{appState.userData.name}</div>
+                        <Link onClick={dropMenu} to={userLinks}>Profile</Link> 
+                        <Link onClick={dropMenu} to={`${userLinks}/posts`}>Posts</Link>
+                        <Link onClick={dropMenu} to={`${userLinks}/create`}>Create</Link>
+                        <button onClick={tempLogin}>Logout</button> 
+                    </div>
+                </div>
                 : 
                 <button onClick={tempLogin}>
                     {loggedIn.toString()}

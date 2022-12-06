@@ -18,8 +18,8 @@ function App() {
   return (
     <div className="App">
       <AppContext.Provider value={{appState, setAppState}}>
-        <Header />
         <Nav />
+        <Header />
         <Content />
         <Footer />
       </AppContext.Provider>

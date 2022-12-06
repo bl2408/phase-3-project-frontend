@@ -72,7 +72,7 @@ export default function CreateEdit({mode}){
         }
 
         fetch(mode==="edit" ? ep.postsEdit(id) : ep.postsNew(),{
-            method: mode==="edit" ? "PUT" :"POST",
+            method: mode==="edit" ? "PUT" : "POST",
             headers: {
                 "Content-Type": "application/json"
             },

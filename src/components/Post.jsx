@@ -24,8 +24,6 @@ export default function Post({data: dataPost, removePost}){
     const lowerPostUser = dataPost.author.name.toLowerCase();
 
     const handleDelete = ()=>{
-        // console.log(data.id)
-
         fetch(ep.postsSingle(dataPost.id),{
             method: "DELETE",
             headers: {
@@ -51,6 +49,7 @@ export default function Post({data: dataPost, removePost}){
             {isAuthor ? <button onClick={handleDelete}>Delete</button> : null}
             {isAuthor ? <button onClick={handleEdit}>Edit</button> : null}
             <header>
+                <Link to={`/posts/${dataPost.id}`}><h1>{dataPost.title}</h1></Link>
                 {dataPost.created_at} : {dataPost.updated_at}<br />
                 <Link to={`/users/${lowerPostUser}`}>{dataPost.author.name}</Link>
                 

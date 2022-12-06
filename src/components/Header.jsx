@@ -1,7 +1,7 @@
 export default function Header(){
     return (
-        <>
-            Header
-        </>
+        <header className="header-main">
+            Website name here
+        </header>
     );
 }
