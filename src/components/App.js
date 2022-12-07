@@ -2,8 +2,7 @@ import Header from "./Header";
 import Nav from "./Nav";
 import Content from "./Content";
 import Footer from "./Footer";
-import { useState, createContext, useEffect } from "react";
-import { ep } from "../data/endpoints";
+import { useState, createContext } from "react";
 
 const defaultAppState = {
   loggedIn: false,

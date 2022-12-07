@@ -81,10 +81,12 @@ export default function CreateEdit({mode}){
             user: userData
         }
 
-        fetch(mode==="edit" ? ep.postsEdit(id) : ep.postsNew(),{
+
+        fetch(mode==="edit" ? ep.postsSingle(id) : ep.postsAll(),{
             method: mode==="edit" ? "PUT" : "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "token": appState.token
             },
             body: JSON.stringify(submitObj)
         })

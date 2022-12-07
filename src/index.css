@@ -26,7 +26,7 @@ code {
 nav{
   display: flex;
   flex-wrap: wrap;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 20px;
   padding: 20px;
 }
