@@ -31,13 +31,15 @@ export default function Nav(){
         .then(data=>{
             if(data.success){
 
+
                 setAppState(state=>{
                     const newState = {
                         ...state, 
-                        userData: data.results[0], 
+                        userData: data.results.user, 
+                        token: data.results.token, 
                         loggedIn: true
                     }
-                    console.log(newState);
+                    // console.log(newState);
                     return newState;
                 })
 

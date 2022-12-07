@@ -23,16 +23,17 @@ export default function ViewPosts(){
 
     useEffect(()=>{
 
-        const requestObj = {
-            method: loggedIn ? "POST" : "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        }
+        const headerObj = {
+            "Content-Type": "application/json",
+        };
 
         if(loggedIn){
-            requestObj.body = JSON.stringify({user: userData});
+            headerObj.token = appState.token
+        }
 
+        const requestObj = {
+            method: "GET",
+            headers: headerObj
         }
 
         let url = ep.postsAll();
@@ -51,7 +52,7 @@ export default function ViewPosts(){
             if(data.success){
                 setPosts(d=>data.results)
             }else{
-                setPosts(d=>({message:"Could not find post!"}))
+                setPosts(d=>({message:"Could not find post(s)!"}))
             }
         })
     }, [appState, id, userId]);

@@ -6,7 +6,7 @@ import { AppContext } from "./App";
 export default function CreateEdit({mode}){
 
     const { appState } = useContext(AppContext);
-    const { userData } = appState;
+    const { loggedIn, userData } = appState;
 
     const [ optionsState, setOptionsState ] = useState([]);
 
@@ -28,14 +28,24 @@ export default function CreateEdit({mode}){
             }
         })
 
+        
+
         if(mode==="edit"){
-            fetch(ep.postsSingle(id),{
-                method: "POST",
-                headers:{
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({user: userData})
-            })
+
+            const headerObj = {
+                "Content-Type": "application/json",
+            };
+    
+            if(loggedIn){
+                headerObj.token = appState.token
+            }
+    
+            const requestObj = {
+                method: "GET",
+                headers: headerObj
+            }
+
+            fetch(ep.postsSingle(id), requestObj)
             .then(res=>res.json())
             .then(data=>{
 

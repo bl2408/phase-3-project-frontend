@@ -23,6 +23,18 @@ export default function User(){
         }
     },[]);
 
+    const hasPosts = ()=>{
+        switch(display.role){
+            case "admin":
+            case "editor":
+                return true;
+            case "member":
+            case "public":
+            default:
+                return false;
+        } 
+    };
+
     return (
         <>
             {
@@ -31,7 +43,12 @@ export default function User(){
                 : 
                 <>
                     {display.name}
-                    View: <Link to={`/users/${display.name.toLowerCase()}/posts`}>{`${display.name}'s posts`}</Link>
+                    {
+                        hasPosts() 
+                        ? <>View: <Link to={`/users/${display.name.toLowerCase()}/posts`}>{`${display.name}'s posts`}</Link></> 
+                        : null
+                    }
+                    
                 </>
             }
             
