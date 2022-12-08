@@ -53,6 +53,29 @@ nav{
   cursor: pointer;
 }
 
+.popup-login{
+
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  min-height: 250px;
+  background-color: rgba(121, 121, 121, 0.8);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-login > div {
+  max-width: 300px;
+  width: 100%;
+  max-height: 300px;
+  height: 100%;
+  background-color: rgb(97, 97, 97);
+
+  border-radius: 15px;
+}
+
 /* 
 .nav-menu{
 
