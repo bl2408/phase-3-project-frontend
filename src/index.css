@@ -34,7 +34,7 @@ nav{
 .nav-menu-loggedin{
   display: inline-block;
   position: relative;
-  min-width: 80px;
+  min-width: 130px;
 }
 .nav-menu-loggedin-content{
   position: absolute;
@@ -42,11 +42,26 @@ nav{
   width: 100%;
   overflow: hidden;
   max-height: 20px;
+  text-align: center;
+  padding-bottom: 10px;
 }
-.nav-menu-loggedin-content > *{
-  display: block;
+.nav-menu-loggedin-content > div, .nav-menu-loggedin-content > a{
+  display: grid;
+  grid-template-columns: 40px auto;
+  align-items: center;
+  justify-content: flex-start;
   margin-bottom: 10px;
-  padding-left: 10px;
+}
+.nav-menu-loggedin-content > div{
+  padding: 0 10px;
+}
+
+.nav-menu-loggedin-content > a{
+  padding: 5px;
+}
+
+.nav-menu-loggedin-content > a:hover{
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .nav-menu-loggedin-content > *:hover{
@@ -76,17 +91,3 @@ nav{
   border-radius: 15px;
 }
 
-/* 
-.nav-menu{
-
-  max-width: 150px;
-  padding: 0 10px;
-  border: solid 1px green;
-  position: rel;
-  background-color: white;
-} */
-
-/* .nav-menu > *{
-  display: block;
-  margin-bottom: 10px;
-} */
