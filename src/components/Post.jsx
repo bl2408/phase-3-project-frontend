@@ -56,12 +56,20 @@ export default function Post({data: dataPost, removePost}){
     const lowerPostUser = dataPost.author.name.toLowerCase();
 
     const handleDelete = ()=>{
-        fetch(ep.postsSingle(dataPost.id),{
+        const headerObj = {
+            "Content-Type": "application/json",
+        };
+
+        if(loggedIn){
+            headerObj.token = appState.token
+        }
+
+        const requestObj = {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
+            headers: headerObj
+        }
+
+        fetch(ep.postsSingle(dataPost.id),requestObj)
         .then(res=>res.json())
         .then(data=>{
             if(data.success){
