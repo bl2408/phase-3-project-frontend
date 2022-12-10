@@ -142,7 +142,7 @@ export default function Post({data: dataPost, removePost}){
                 <div className="header-extras opacity60">
                     <div>
                         <div><i className="fa fa-user"></i></div>
-                        <div><Link to={`/users/${lowerPostUser}`}>{dataPost.author.name}</Link></div>
+                        <div><Link to={`/users/${lowerPostUser}/posts`}>{dataPost.author.name}</Link></div>
                     </div>
                     <div>
                         <div><i className="fa fa-clock-o"></i></div>

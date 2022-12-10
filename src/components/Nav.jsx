@@ -98,10 +98,6 @@ export default function Nav({setShowLogin}){
                                 <i className="fa fa-user-circle-o"></i>
                                 {appState.userData.name}
                             </div>
-                            <Link to={userLinks}>
-                                <i className="fa fa-address-card-o"></i>
-                                Profile
-                            </Link> 
                             {profileLinks()}
                             <button onClick={showLogin}>Logout</button> 
                         </div>

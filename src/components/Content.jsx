@@ -1,5 +1,4 @@
 import { Route, Redirect, Switch } from 'react-router-dom'
-import User from './User';
 import CreateEdit from './CreateEdit';
 import ViewPosts from './ViewPosts';
 import { useContext } from 'react';
@@ -46,12 +45,7 @@ export default function Content(){
                         <ViewPosts />
                     </Route>
 
-                    <Route exact path={["/users", "/users/:id"]}>
-                        <User />
-                    </Route>
-
                     <Route exact path="/users/:userId/posts/">
-
                         <ViewPosts />
                     </Route>
 
