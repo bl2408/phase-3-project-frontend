@@ -5,19 +5,16 @@ import { v4 as uuid } from 'uuid';
 
 import Post from './Post';
 import { ep } from '../data/endpoints';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 
 export default function ViewPosts(){
 
     const { appState } = useContext(AppContext);
-    const { loggedIn, userData } = appState;
+    const { loggedIn } = appState;
 
     const { id, userId } = useParams();
-
-    const history = useHistory();
-
 
     const [ posts, setPosts] = useState([])
 

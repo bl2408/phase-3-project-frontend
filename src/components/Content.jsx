@@ -1,9 +1,11 @@
-import { Route, Redirect, Switch, useRouteMatch } from 'react-router-dom'
+import { Route, Redirect, Switch } from 'react-router-dom'
 import User from './User';
 import CreateEdit from './CreateEdit';
 import ViewPosts from './ViewPosts';
 import { useContext } from 'react';
 import { AppContext } from './App';
+
+
 
 
 export default function Content(){
@@ -30,6 +32,8 @@ export default function Content(){
         } 
     };
 
+
+
     return (
         <main>
 
@@ -47,6 +51,7 @@ export default function Content(){
                 </Route>
 
                 <Route exact path="/users/:userId/posts/">
+
                     <ViewPosts />
                 </Route>
 
@@ -58,6 +63,10 @@ export default function Content(){
                 <Route exact path="/posts/:id/edit">
                     { redirect() }
                     <CreateEdit mode={"edit"}/>
+                </Route>
+
+                <Route path="*">
+                    Page not found!
                 </Route>
 
             </Switch>
