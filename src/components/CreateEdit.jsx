@@ -104,14 +104,26 @@ export default function CreateEdit({mode}){
     return (
         <article>
             <form onSubmit={handleFormSubmit}>
-                <label>
-                    Title:
-                    <input 
-                        ref={refs.textTitle} 
-                        type="text" 
-                        onChange={(e)=>refs.textTitle.current.value = e.target.value}
-                    />
-                </label>
+                <div>
+                    <label>
+                        Title:
+                        <input 
+                            ref={refs.textTitle} 
+                            type="text" 
+                            onChange={(e)=>refs.textTitle.current.value = e.target.value}
+                        />
+                    </label>
+                    <label>
+                        Publish:
+                        <select 
+                            ref={refs.selectPublish}
+                            onChange={(e)=>refs.selectPublish.current.value = e.target.value}
+                        >
+                            <option value="0">Select</option>
+                            {optionsState.map((option)=><option key={option.id} value={option.value}>{option.name}</option>)}
+                        </select>
+                    </label>
+                </div>
 
                 <label>
                     Post:
@@ -121,17 +133,10 @@ export default function CreateEdit({mode}){
                         onChange={(e)=>refs.textAreaMain.current.value = e.target.value}
                     ></textarea>
                 </label>
-                <label>
-                    Publish:
-                    <select 
-                        ref={refs.selectPublish}
-                        onChange={(e)=>refs.selectPublish.current.value = e.target.value}
-                    >
-                        <option value="0">Select</option>
-                        {optionsState.map((option)=><option key={option.id} value={option.value}>{option.name}</option>)}
-                    </select>
-                </label>
-                <input type="submit" value="Post" />
+                
+                <div>
+                    <input type="submit" value={mode==="edit" ? "Update" : "Post"} />
+                </div>
             </form>
         </article>
     );

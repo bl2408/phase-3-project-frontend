@@ -36,40 +36,41 @@ export default function Content(){
 
     return (
         <main>
+            <div className="max-content">
+                <Switch>
+                    <Route exact path={["/", "/posts"]}>
+                        <ViewPosts />
+                    </Route>
 
-            <Switch>
-                <Route exact path={["/", "/posts"]}>
-                    <ViewPosts />
-                </Route>
+                    <Route exact path="/posts/:id">
+                        <ViewPosts />
+                    </Route>
 
-                <Route exact path="/posts/:id">
-                    <ViewPosts />
-                </Route>
+                    <Route exact path={["/users", "/users/:id"]}>
+                        <User />
+                    </Route>
 
-                <Route exact path={["/users", "/users/:id"]}>
-                    <User />
-                </Route>
+                    <Route exact path="/users/:userId/posts/">
 
-                <Route exact path="/users/:userId/posts/">
+                        <ViewPosts />
+                    </Route>
 
-                    <ViewPosts />
-                </Route>
+                    <Route exact path="/users/:userId/create">
+                        { redirect() }
+                        <CreateEdit mode={"create"}/>
+                    </Route>
 
-                <Route exact path="/users/:userId/create">
-                    { redirect() }
-                    <CreateEdit mode={"create"}/>
-                </Route>
+                    <Route exact path="/posts/:id/edit">
+                        { redirect() }
+                        <CreateEdit mode={"edit"}/>
+                    </Route>
 
-                <Route exact path="/posts/:id/edit">
-                    { redirect() }
-                    <CreateEdit mode={"edit"}/>
-                </Route>
+                    <Route path="*">
+                        Page not found!
+                    </Route>
 
-                <Route path="*">
-                    Page not found!
-                </Route>
-
-            </Switch>
+                </Switch>
+            </div>
         </main>
     );
 }

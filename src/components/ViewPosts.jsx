@@ -51,9 +51,10 @@ export default function ViewPosts(){
                 setPosts(d=>data.results.map(post=>{
                     const postObj = {...post};
                     postObj.readTime = wordCountTime(postObj.body);
+                    postObj.viewMode = postViewMode
                     
                     if(postViewMode === "all"){
-                        postObj.body = `${postObj.body.substring(0,50)}...`
+                        postObj.body = `${postObj.body.substring(0,200)}...`
                     }
                     return postObj
                 }))

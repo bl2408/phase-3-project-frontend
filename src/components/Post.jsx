@@ -74,20 +74,69 @@ export default function Post({data: dataPost, removePost}){
         history.push(`/posts/${dataPost.id}/edit`);
     };
 
+    const arrMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+    const dateConversion =(utc)=>{
+        const d = new Date(utc)
+        const showYr = d.getFullYear() !== new Date().getFullYear() ? d.getFullYear() : ""
+        return `${d.getDay()} ${arrMonths[d.getMonth()]} ${showYr}`
+    };
+
+    const displayViewType = ()=>{
+
+        const view = appState.viewablesList.find(viewable => viewable.id === dataPost.viewable_id)
+        let iconClass = "";
+        let msg = "";
+        if(view.name === "public"){
+            iconClass = "fa fa-eye"
+        }else if(view.name === "private"){
+            iconClass = "fa fa-eye-slash"
+        }else if(view.name === "draft"){
+            iconClass = "fa fa-lock"
+        }
+
+        msg = `${view.name[0].toUpperCase()}${view.name.slice(1)}`;
+
+        return (
+            <div>
+                <div title={msg}><i className={iconClass}></i></div>
+            </div>
+        );
+    };
+
     return (
         <article>
+
             <div className="controls">
                 {canEdit() ? <button onClick={handleEdit}><i className="fa fa-edit"></i></button> : null}
                 {canDelete() ? <button onClick={handleDelete}><i className="fa fa-close"></i></button> : null}
             </div>
-            <header>
-                <Link to={`/posts/${dataPost.id}`}><h1>{dataPost.title}</h1></Link>
-                {dataPost.created_at} : {dataPost.updated_at}<br />
-                <Link to={`/users/${lowerPostUser}`}>{dataPost.author.name}</Link>
-                {dataPost.readTime}min
+
+
+            <header className="font-code">
+                {dataPost.viewMode === "single" ? 
+                    <h1>{dataPost.title}</h1>
+                    :
+                    <Link to={`/posts/${dataPost.id}`}><h1>{dataPost.title}</h1></Link>
+                }
+                
+                <div className="header-extras opacity60">
+                    <div>
+                        <div><i className="fa fa-user"></i></div>
+                        <div><Link to={`/users/${lowerPostUser}`}>{dataPost.author.name}</Link></div>
+                    </div>
+                    <div>
+                        <div><i className="fa fa-clock-o"></i></div>
+                        <div>{dataPost.readTime} min read.</div>
+                    </div>
+                    <div>
+                        <div><i className="fa fa-calendar"></i></div>
+                        <div>{dateConversion(dataPost.created_at)}</div>
+                    </div>
+                    {displayViewType()}
+                </div>
             </header>
             <div className="article-content">{dataPost.body}</div>
-            <hr />
         </article>
     );
 
