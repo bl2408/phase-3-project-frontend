@@ -108,6 +108,21 @@ export default function Post({data: dataPost, removePost}){
         );
     };
 
+    const displayUpdated =()=>{
+
+        if(dataPost.created_at === dataPost.updated_at){
+            return;
+        }
+
+        const dt = dateConversion(dataPost.updated_at);
+        return (
+            <div>
+                <div><i className="fa fa-refresh"></i></div>
+                <div>{dt}</div>
+            </div>
+        );
+    }
+
     return (
         <article>
 
@@ -137,6 +152,7 @@ export default function Post({data: dataPost, removePost}){
                         <div><i className="fa fa-calendar"></i></div>
                         <div>{dateConversion(dataPost.created_at)}</div>
                     </div>
+                    {dataPost.viewMode === "single" ?  displayUpdated() : null}
                     {displayViewType()}
                 </div>
             </header>
