@@ -63,7 +63,11 @@ export default function Login({prop}){
                 showLogin ?
                 <div className="popup-login" onClick={handleClose}>
                     <div onClick={e=> e.stopPropagation()}>
-                        <div onClick={handleClose}>Close</div>
+    
+                        <div onClick={handleClose} className="btn-close">
+                            <i className="fa fa-times-circle"></i>
+                        </div>
+
                         <form onSubmit={handleLogin}>
                             <label>
                                 Username:
@@ -71,6 +75,8 @@ export default function Login({prop}){
                             </label>
                             <input type="submit" value="Login" />
                         </form>
+
+                        
                     </div>
                 </div>
                 :
