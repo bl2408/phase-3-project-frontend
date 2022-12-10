@@ -43,16 +43,6 @@ export default function Post({data: dataPost, removePost}){
 
     const history = useHistory();
 
-    const styleCss = ()=>{
-        const style = {
-            margin: "10px 0 20px 0"
-        }
-        // if(isAuthor){
-        //     style.backgroundColor = "rgba(0,0,0,0.5)"
-        // }
-        return style;
-    };
-
     const lowerPostUser = dataPost.author.name.toLowerCase();
 
     const handleDelete = ()=>{
@@ -85,16 +75,18 @@ export default function Post({data: dataPost, removePost}){
     };
 
     return (
-        <article style={styleCss()}>
-            {canDelete() ? <button onClick={handleDelete}>Delete</button> : null}
-            {canEdit() ? <button onClick={handleEdit}>Edit</button> : null}
+        <article>
+            <div className="controls">
+                {canEdit() ? <button onClick={handleEdit}><i className="fa fa-edit"></i></button> : null}
+                {canDelete() ? <button onClick={handleDelete}><i className="fa fa-close"></i></button> : null}
+            </div>
             <header>
                 <Link to={`/posts/${dataPost.id}`}><h1>{dataPost.title}</h1></Link>
                 {dataPost.created_at} : {dataPost.updated_at}<br />
                 <Link to={`/users/${lowerPostUser}`}>{dataPost.author.name}</Link>
-                
+                {dataPost.readTime}min
             </header>
-            <div>{dataPost.body}</div>
+            <div className="article-content">{dataPost.body}</div>
             <hr />
         </article>
     );

@@ -12,6 +12,9 @@ code {
     monospace;
 }
 
+.max-content{
+  max-width: 1000px;
+}
 
 .header-main{
   display: flex;
@@ -24,6 +27,7 @@ code {
 }
 
 nav{
+  border: solid 1px green;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -50,14 +54,15 @@ nav{
   grid-template-columns: 40px auto;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 10px;
 }
 .nav-menu-loggedin-content > div{
   padding: 0 10px;
+  margin-bottom: 15px;
 }
 
 .nav-menu-loggedin-content > a{
   padding: 5px;
+  margin-bottom: 10px;
 }
 
 .nav-menu-loggedin-content > a:hover{
@@ -89,5 +94,27 @@ nav{
   background-color: rgb(97, 97, 97);
 
   border-radius: 15px;
+}
+
+article .controls{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  padding: 5px 15px;
+  box-sizing: border-box;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+
+/* resets */
+button{
+  font-size: inherit;
+}
+h1{
+  margin: 0;
 }
 

@@ -35,11 +35,12 @@ export default function ViewPosts(){
             method: "GET",
             headers: headerObj
         }
-
+        let postViewMode = "all";
         let url = ep.postsAll();
 
         if(id){
             url = ep.postsSingle(id);
+            postViewMode = "single"
         }else{
             if(userId){
                 url = ep.userPosts(userId);
@@ -50,12 +51,25 @@ export default function ViewPosts(){
         .then(res=>res.json())
         .then(data=>{
             if(data.success){
-                setPosts(d=>data.results)
+                setPosts(d=>data.results.map(post=>{
+                    const postObj = {...post};
+                    postObj.readTime = wordCountTime(postObj.body);
+                    
+                    if(postViewMode === "all"){
+                        postObj.body = `${postObj.body.substring(0,50)}...`
+                    }
+                    return postObj
+                }))
             }else{
                 setPosts(d=>({message:"Could not find post(s)!"}))
             }
         })
     }, [appState, id, userId]);
+
+    const wordCountTime =word=>{
+        const wordCount = word.split(' ').length
+        return Math.round(wordCount / 150)
+    };
 
 
     const removePost = (id)=>{
