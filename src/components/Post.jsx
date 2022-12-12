@@ -84,11 +84,12 @@ export default function Post({data: dataPost, removePost}){
 
     const displayViewType = ()=>{
 
-        if(!dataPost){
+        if(!dataPost ||!appState || !appState.viewablesList){
             return
         }
 
         const view = appState.viewablesList.find(viewable => viewable.id === dataPost.viewable_id)
+
         let iconClass = "";
         let msg = "";
         if(view.name === "public"){

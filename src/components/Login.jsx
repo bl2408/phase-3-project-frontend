@@ -10,6 +10,7 @@ export default function Login({prop}){
     const { showLogin, setShowLogin } = prop;
 
     const refInput = useRef();
+    const errorDivRef = useRef();
 
     const handleClose =()=>{
         setShowLogin(state=>false);
@@ -17,6 +18,8 @@ export default function Login({prop}){
 
     const handleLogin =(e)=>{
         e.preventDefault();
+
+        errorDivRef.current.innerHTML = "";
 
         const name = refInput.current.value
 
@@ -52,6 +55,8 @@ export default function Login({prop}){
                     return newState;
                 })
 
+            }else{
+                errorDivRef.current.innerHTML = data.results
             }
         })
     };
@@ -73,10 +78,11 @@ export default function Login({prop}){
                                 Username:
                                 <input ref={refInput} onChange={e=>refInput.current.value = e.target.value} type="text" />
                             </label>
+                            <div ref={errorDivRef} style={{color: "red"}}></div>
                             <input type="submit" value="Login" />
                         </form>
 
-                        
+
                     </div>
                 </div>
                 :
